@@ -17,6 +17,7 @@ var storeHours = [
   '7pm',
 ];
 
+
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 } //THIS MIGHT NEED TO BE LOCAL!!
@@ -39,5 +40,24 @@ var seattle = {
   },
 };
 seattle.cookieCalc();
+var position = document.getElementById('seattle'); //does NOT work w/ getElementsByTagName
+var seattleList = document.createElement('ul');
+seattleList.textContent = `${seattle.location}`;
+position.insertBefore(seattleList, position.firstChild);
 
-console.log(seattle);
+for (var i = 0; i < storeHours.length; i++) {
+  var newEl = document.createElement('li');
+  // var newText = document.createTextNode(storeHours);
+  newEl.textContent = `${storeHours[i]}: ${seattle.hourlyCookieArray[i]} cookies`;
+  // newEl.appendChild(newText);
+  position.appendChild(newEl);
+}
+
+var totalCookies = document.createElement('li');
+totalCookies.textContent = `Total: ${seattle.totalCookies} cookies`;
+position.appendChild(totalCookies);
+
+// console.log(seattle);
+
+
+
