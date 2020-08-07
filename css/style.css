@@ -1,0 +1,12 @@
+* {
+  background-color: brown;
+}
+
+ul {
+  display: inline;
+}
+
+ul li {
+  list-style-type: circle;
+  margin: 5px 50px;
+}
