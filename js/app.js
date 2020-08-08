@@ -93,7 +93,7 @@ var totalCookiesTokyo = document.createElement('li');
 totalCookiesTokyo.textContent = `Total: ${tokyo.totalCookies} cookies`;
 positionTokyo.appendChild(totalCookiesTokyo);
 
-// // console.log(seattle);
+// // console.log(tokyo);
 
 // ///////////////////DUBAI/////////////////////////////
 var dubai = {
@@ -129,7 +129,7 @@ var totalCookiesDubai = document.createElement('li');
 totalCookiesDubai.textContent = `Total: ${dubai.totalCookies} cookies`;
 positionDubai.appendChild(totalCookiesDubai);
 
-// // console.log(seattle);
+// // console.log(dubai);
 
 ////////////////////PARIS/////////////////////////////
 var paris = {
@@ -165,4 +165,40 @@ var totalCookiesParis = document.createElement('li');
 totalCookiesParis.textContent = `Total: ${paris.totalCookies} cookies`;
 positionParis.appendChild(totalCookiesParis);
 
-// // console.log(seattle);
+// // console.log(paris);
+
+////////////////////LIMA/////////////////////////////
+var lima = {
+  location: 'Lima',
+  minCust: 2,
+  maxCust: 16,
+  avgCookies: 4.6,
+  hourlyCookieArray: [],
+  totalCookies: 0,
+  cookieCalc: function () {
+    for (var i = 0; i < storeHours.length; i++) {
+      var cookiesSold = Math.floor(randomNum(this.minCust, this.maxCust) * this.avgCookies);
+      this.hourlyCookieArray.push(cookiesSold);
+      this.totalCookies += cookiesSold;
+    }
+  },
+};
+lima.cookieCalc();
+var positionLima = document.getElementById('lima'); //does NOT work w/ getElementsByTagName
+var limaList = document.createElement('ul');
+limaList.textContent = `${lima.location}`;
+positionLima.insertBefore(limaList, positionLima.firstChild);
+
+for (var i = 0; i < storeHours.length; i++) {
+  var newElLima = document.createElement('li');
+  // var newText = document.createTextNode(storeHours);
+  newElLima.textContent = `${storeHours[i]}: ${lima.hourlyCookieArray[i]} cookies`;
+  // newEl.appendChild(newText);
+  positionLima.appendChild(newElLima);
+}
+
+var totalCookiesLima = document.createElement('li');
+totalCookiesLima.textContent = `Total: ${lima.totalCookies} cookies`;
+positionLima.appendChild(totalCookiesLima);
+
+// // console.log(lima);
