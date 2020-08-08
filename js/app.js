@@ -95,3 +95,38 @@ positionTokyo.appendChild(totalCookiesTokyo);
 
 // // console.log(seattle);
 
+// ///////////////////DUBAI/////////////////////////////
+var dubai = {
+  location: 'Dubai',
+  minCust: 11,
+  maxCust: 38,
+  avgCookies: 3.7,
+  hourlyCookieArray: [],
+  totalCookies: 0,
+  cookieCalc: function () {
+    for (var i = 0; i < storeHours.length; i++) {
+      var cookiesSold = Math.floor(randomNum(this.minCust, this.maxCust) * this.avgCookies);
+      this.hourlyCookieArray.push(cookiesSold);
+      this.totalCookies += cookiesSold;
+    }
+  },
+};
+dubai.cookieCalc();
+var positionDubai = document.getElementById('dubai'); //does NOT work w/ getElementsByTagName
+var dubaiList = document.createElement('ul');
+dubaiList.textContent = `${dubai.location}`;
+positionDubai.insertBefore(dubaiList, positionDubai.firstChild);
+
+for (var i = 0; i < storeHours.length; i++) {
+  var newElDubai = document.createElement('li');
+  // var newText = document.createTextNode(storeHours);
+  newElDubai.textContent = `${storeHours[i]}: ${dubai.hourlyCookieArray[i]} cookies`;
+  // newEl.appendChild(newText);
+  positionDubai.appendChild(newElDubai);
+}
+
+var totalCookiesDubai = document.createElement('li');
+totalCookiesDubai.textContent = `Total: ${dubai.totalCookies} cookies`;
+positionDubai.appendChild(totalCookiesDubai);
+
+// // console.log(seattle);
