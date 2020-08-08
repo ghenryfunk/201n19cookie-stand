@@ -60,38 +60,38 @@ position.appendChild(totalCookies);
 // console.log(seattle);
 
 // ///////////////////TOKYO/////////////////////////////
-// var tokyo = {
-//   location: 'Tokyo',
-//   minCust: 3,
-//   maxCust: 24,
-//   avgCookies: 1.2,
-//   hourlyCookieArray: [],
-//   totalCookies: 0,
-//   cookieCalc: function () {
-//     for (var i = 0; i < storeHours.length; i++) {
-//       var cookiesSold = Math.floor(randomNum(this.minCust, this.maxCust) * this.avgCookies);
-//       this.hourlyCookieArray.push(cookiesSold);
-//       this.totalCookies += cookiesSold;
-//     }
-//   },
-// };
-// tokyo.cookieCalc();
-// var positionTokyo = document.getElementById('tokyo'); //does NOT work w/ getElementsByTagName
-// var tokyoList = document.createElement('ul');
-// tokyoList.textContent = `${tokyo.location}`;
-// positionTokyo.insertBefore(tokyoList, positionTokyo.firstChild);
+var tokyo = {
+  location: 'Tokyo',
+  minCust: 3,
+  maxCust: 24,
+  avgCookies: 1.2,
+  hourlyCookieArray: [],
+  totalCookies: 0,
+  cookieCalc: function () {
+    for (var i = 0; i < storeHours.length; i++) {
+      var cookiesSold = Math.floor(randomNum(this.minCust, this.maxCust) * this.avgCookies);
+      this.hourlyCookieArray.push(cookiesSold);
+      this.totalCookies += cookiesSold;
+    }
+  },
+};
+tokyo.cookieCalc();
+var positionTokyo = document.getElementById('tokyo'); //does NOT work w/ getElementsByTagName
+var tokyoList = document.createElement('ul');
+tokyoList.textContent = `${tokyo.location}`;
+positionTokyo.insertBefore(tokyoList, positionTokyo.firstChild);
 
-// for (var i = 0; i < storeHours.length; i++) {
-//   var newElTokyo = document.createElement('li');
-//   // var newText = document.createTextNode(storeHours);
-//   newElTokyo.textContent = `${storeHours[i]}: ${tokyo.hourlyCookieArray[i]} cookies`;
-//   // newEl.appendChild(newText);
-//   position.appendChild(newElTokyo);
-// }
+for (var i = 0; i < storeHours.length; i++) {
+  var newElTokyo = document.createElement('li');
+  // var newText = document.createTextNode(storeHours);
+  newElTokyo.textContent = `${storeHours[i]}: ${tokyo.hourlyCookieArray[i]} cookies`;
+  // newEl.appendChild(newText);
+  positionTokyo.appendChild(newElTokyo);
+}
 
-// var totalCookiesTokyo = document.createElement('li');
-// totalCookies.textContent = `Total: ${tokyo.totalCookiesTokyo} cookies`;
-// position.appendChild(totalCookiesTokyo);
+var totalCookiesTokyo = document.createElement('li');
+totalCookiesTokyo.textContent = `Total: ${tokyo.totalCookies} cookies`;
+positionTokyo.appendChild(totalCookiesTokyo);
 
 // // console.log(seattle);
 
