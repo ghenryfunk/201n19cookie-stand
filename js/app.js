@@ -130,3 +130,39 @@ totalCookiesDubai.textContent = `Total: ${dubai.totalCookies} cookies`;
 positionDubai.appendChild(totalCookiesDubai);
 
 // // console.log(seattle);
+
+////////////////////PARIS/////////////////////////////
+var paris = {
+  location: 'Paris',
+  minCust: 20,
+  maxCust: 38,
+  avgCookies: 2.3,
+  hourlyCookieArray: [],
+  totalCookies: 0,
+  cookieCalc: function () {
+    for (var i = 0; i < storeHours.length; i++) {
+      var cookiesSold = Math.floor(randomNum(this.minCust, this.maxCust) * this.avgCookies);
+      this.hourlyCookieArray.push(cookiesSold);
+      this.totalCookies += cookiesSold;
+    }
+  },
+};
+paris.cookieCalc();
+var positionParis = document.getElementById('paris'); //does NOT work w/ getElementsByTagName
+var parisList = document.createElement('ul');
+parisList.textContent = `${paris.location}`;
+positionParis.insertBefore(parisList, positionParis.firstChild);
+
+for (var i = 0; i < storeHours.length; i++) {
+  var newElParis = document.createElement('li');
+  // var newText = document.createTextNode(storeHours);
+  newElParis.textContent = `${storeHours[i]}: ${paris.hourlyCookieArray[i]} cookies`;
+  // newEl.appendChild(newText);
+  positionParis.appendChild(newElParis);
+}
+
+var totalCookiesParis = document.createElement('li');
+totalCookiesParis.textContent = `Total: ${paris.totalCookies} cookies`;
+positionParis.appendChild(totalCookiesParis);
+
+// // console.log(seattle);
