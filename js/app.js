@@ -17,6 +17,9 @@ var storeHours = [
   '7pm',
 ];
 
+var storeArray = [];
+console.log(storeArray);
+
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 } //THIS MIGHT NEED TO BE LOCAL!!
@@ -30,7 +33,9 @@ function Store(location, minCust, maxCust, avgCookies) {
   this.hourlyCookieArray = [];
   this.totalCookies = 0;
   this.cookieCalc();
-  this.render();
+  // this.render();
+
+  storeArray.push(this);
 }
 
 Store.prototype.cookieCalc = function () {
@@ -43,25 +48,6 @@ Store.prototype.cookieCalc = function () {
   }
 };
 
-Store.prototype.render = function () {
-  this.cookieCalc();
-  var parentEl = document.getElementById(`${this.location}`); //does NOT work w/ getElementsByTagName
-  var childEl = document.createElement('ul');
-  childEl.textContent = `${this.location}`;
-  parentEl.insertBefore(childEl, parentEl.firstChild);
-
-  for (var i = 0; i < storeHours.length; i++) {
-    var newEl = document.createElement('li');
-    // var newText = document.createTextNode(storeHours);
-    newEl.textContent = `${storeHours[i]}: ${this.hourlyCookieArray[i]} cookies`;
-    // newEl.appendChild(newText);
-    parentEl.appendChild(newEl);
-  }
-
-  var newEl2 = document.createElement('li');
-  newEl2.textContent = `Total: ${this.totalCookies} cookies`;
-  parentEl.appendChild(newEl2);
-};
 
 var seattle = new Store('Seattle', 23, 65, 6.3);
 var tokyo = new Store('Tokyo', 3, 24, 1.2);
@@ -69,3 +55,69 @@ var dubai = new Store('Dubai', 11, 38, 3.7);
 var paris = new Store('Paris', 20, 38, 2.3);
 var lima = new Store('Lima', 2, 16, 4.6);
 
+var theadEl = document.getElementById('thead');
+var tbodyEl = document.getElementById('tbody');
+var tfootEl = document.getElementById('tfoot');
+
+var trHoursEl = document.createElement('tr');
+theadEl.appendChild(trHoursEl);
+var thSpaceFiller = document.createElement('th');
+thSpaceFiller.textContent = '';
+trHoursEl.appendChild(thSpaceFiller);
+
+for (var i = 0; i < storeHours.length; i++) {
+  var thHoursEl = document.createElement('th');
+  thHoursEl.textContent = storeHours[i];
+  trHoursEl.appendChild(thHoursEl);
+}
+var thDailyTotals = document.createElement('th');
+thDailyTotals.textContent = 'Daily Location Total';
+trHoursEl.appendChild(thDailyTotals);
+
+for (var j = 0; j < storeArray.length; j++) {
+  var trStoreEl = document.createElement('tr');
+  tbodyEl.appendChild(trStoreEl);
+  var tdStoreEl = document.createElement('td');
+  tdStoreEl.textContent = storeArray[j].location;
+  trStoreEl.appendChild(tdStoreEl);
+  for (var i = 0; i < storeHours.length; i++) {
+    var tdCookiesEl = document.createElement('td');
+    tdCookiesEl.textContent = storeArray[j].hourlyCookieArray[i];
+    trStoreEl.appendChild(tdCookiesEl);
+    // var tdHourlyTotals = document.createElement('td');
+    // tdHourlyTotals = 0;
+    // tdHourlyTotals += storeArray[j].hourlyCookieArray[i];
+    // trTotals.appendChild(tdHourlyTotals);
+  }
+  var tdCookieTotals = document.createElement('td');
+  tdCookieTotals.textContent = storeArray[j].totalCookies;
+  trStoreEl.appendChild(tdCookieTotals);
+}
+
+var trTotals = document.createElement('tr');
+tfootEl.appendChild(trTotals);
+var tdTotals = document.createElement('td');
+tdTotals.textContent = 'Totals';
+trTotals.appendChild(tdTotals);
+
+
+
+// Store.prototype.render = function () {
+//   this.cookieCalc();
+//   var parentEl = document.getElementById(`${this.location}`); //does NOT work w/ getElementsByTagName
+//   var childEl = document.createElement('ul');
+//   childEl.textContent = `${this.location}`;
+//   parentEl.insertBefore(childEl, parentEl.firstChild);
+
+//   for (var i = 0; i < storeHours.length; i++) {
+//     var newEl = document.createElement('li');
+//     // var newText = document.createTextNode(storeHours);
+//     newEl.textContent = `${storeHours[i]}: ${this.hourlyCookieArray[i]} cookies`;
+//     // newEl.appendChild(newText);
+//     parentEl.appendChild(newEl);
+//   }
+
+//   var newEl2 = document.createElement('li');
+//   newEl2.textContent = `Total: ${this.totalCookies} cookies`;
+//   parentEl.appendChild(newEl2);
+// };
