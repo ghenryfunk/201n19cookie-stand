@@ -18,7 +18,9 @@ var storeHours = [
 ];
 
 var storeArray = [];
-console.log(storeArray);
+// console.log(storeArray);
+
+// var hourlyTotalsArray = [];
 
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -84,10 +86,6 @@ for (var j = 0; j < storeArray.length; j++) {
     var tdCookiesEl = document.createElement('td');
     tdCookiesEl.textContent = storeArray[j].hourlyCookieArray[i];
     trStoreEl.appendChild(tdCookiesEl);
-    // var tdHourlyTotals = document.createElement('td');
-    // tdHourlyTotals = 0;
-    // tdHourlyTotals += storeArray[j].hourlyCookieArray[i];
-    // trTotals.appendChild(tdHourlyTotals);
   }
   var tdCookieTotals = document.createElement('td');
   tdCookieTotals.textContent = storeArray[j].totalCookies;
@@ -99,6 +97,26 @@ tfootEl.appendChild(trTotals);
 var tdTotals = document.createElement('td');
 tdTotals.textContent = 'Totals';
 trTotals.appendChild(tdTotals);
+
+
+var grandTotal = 0;
+for (var i = 0; i < storeHours.length; i++) {
+  var hourlyTotals = 0;
+  for (var j = 0; j < storeArray.length; j++) {
+    hourlyTotals += storeArray[j].hourlyCookieArray[i];
+    grandTotal += storeArray[j].hourlyCookieArray[i];
+  }
+  var tdHourlyTotals = document.createElement('td');
+  tdHourlyTotals.textContent = hourlyTotals;
+  trTotals.appendChild(tdHourlyTotals);
+}
+var tdGrandTotal = document.createElement('td');
+tdGrandTotal.textContent = grandTotal;
+trTotals.appendChild(tdGrandTotal);
+// hourlyTotalsArray.push(hourlyTotals);
+// Take away the hourly totals array? Do I have to put this all inside a render function?
+
+
 
 
 
