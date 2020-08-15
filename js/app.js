@@ -61,58 +61,85 @@ var theadEl = document.getElementById('thead');
 var tbodyEl = document.getElementById('tbody');
 var tfootEl = document.getElementById('tfoot');
 
-var trHoursEl = document.createElement('tr');
-theadEl.appendChild(trHoursEl);
-var thSpaceFiller = document.createElement('th');
-thSpaceFiller.textContent = '';
-trHoursEl.appendChild(thSpaceFiller);
-
-for (var i = 0; i < storeHours.length; i++) {
-  var thHoursEl = document.createElement('th');
-  thHoursEl.textContent = storeHours[i];
-  trHoursEl.appendChild(thHoursEl);
+function createElement(element, textContent, parent) {
+  var newElement = document.createElement(element);
+  newElement.textContent = textContent;
+  parent.appendChild(newElement);
+  return newElement;
 }
-var thDailyTotals = document.createElement('th');
-thDailyTotals.textContent = 'Daily Location Total';
-trHoursEl.appendChild(thDailyTotals);
 
-for (var j = 0; j < storeArray.length; j++) {
-  var trStoreEl = document.createElement('tr');
-  tbodyEl.appendChild(trStoreEl);
-  var tdStoreEl = document.createElement('td');
-  tdStoreEl.textContent = storeArray[j].location;
-  trStoreEl.appendChild(tdStoreEl);
+function renderHeader() {
+  var trHoursEl = createElement('tr', '', theadEl);
+  // var trHoursEl = document.createElement('tr');
+  // theadEl.appendChild(trHoursEl);
+  createElement('th', '', trHoursEl);
+  // var thSpaceFiller = document.createElement('th');
+  // thSpaceFiller.textContent = '';
+  // trHoursEl.appendChild(thSpaceFiller);
+  
   for (var i = 0; i < storeHours.length; i++) {
-    var tdCookiesEl = document.createElement('td');
-    tdCookiesEl.textContent = storeArray[j].hourlyCookieArray[i];
-    trStoreEl.appendChild(tdCookiesEl);
+    createElement('th', storeHours[i], trHoursEl);
+    // var thHoursEl = document.createElement('th');
+    // thHoursEl.textContent = storeHours[i];
+    // trHoursEl.appendChild(thHoursEl);
   }
-  var tdCookieTotals = document.createElement('td');
-  tdCookieTotals.textContent = storeArray[j].totalCookies;
-  trStoreEl.appendChild(tdCookieTotals);
+  createElement('th', 'Daily Location Total', trHoursEl);
+  // var thDailyTotals = document.createElement('th');
+  // thDailyTotals.textContent = 'Daily Location Total';
+  // trHoursEl.appendChild(thDailyTotals);
 }
+renderHeader();
 
-var trTotals = document.createElement('tr');
-tfootEl.appendChild(trTotals);
-var tdTotals = document.createElement('td');
-tdTotals.textContent = 'Totals';
-trTotals.appendChild(tdTotals);
-
-
-var grandTotal = 0;
-for (var i = 0; i < storeHours.length; i++) {
-  var hourlyTotals = 0;
+function renderTable() {
   for (var j = 0; j < storeArray.length; j++) {
-    hourlyTotals += storeArray[j].hourlyCookieArray[i];
-    grandTotal += storeArray[j].hourlyCookieArray[i];
+    var trStoreEl = createElement('tr', '', tbodyEl);
+    // var trStoreEl = document.createElement('tr');
+    // tbodyEl.appendChild(trStoreEl);
+    createElement('td', storeArray[j].location, trStoreEl);
+    // var tdStoreEl = document.createElement('td');
+    // tdStoreEl.textContent = storeArray[j].location;
+    // trStoreEl.appendChild(tdStoreEl);
+    for (var i = 0; i < storeHours.length; i++) {
+      createElement('td', storeArray[j].hourlyCookieArray[i], trStoreEl);
+      // var tdCookiesEl = document.createElement('td');
+      // tdCookiesEl.textContent = storeArray[j].hourlyCookieArray[i];
+      // trStoreEl.appendChild(tdCookiesEl);
+    }
+    createElement('td', storeArray[j].totalCookies, trStoreEl);
+    // var tdCookieTotals = document.createElement('td');
+    // tdCookieTotals.textContent = storeArray[j].totalCookies;
+    // trStoreEl.appendChild(tdCookieTotals);
   }
-  var tdHourlyTotals = document.createElement('td');
-  tdHourlyTotals.textContent = hourlyTotals;
-  trTotals.appendChild(tdHourlyTotals);
 }
-var tdGrandTotal = document.createElement('td');
-tdGrandTotal.textContent = grandTotal;
-trTotals.appendChild(tdGrandTotal);
+renderTable();
+
+function renderFooter() {
+  var trTotals = createElement('tr', '', tfootEl);
+  // var trTotals = document.createElement('tr');
+  // tfootEl.appendChild(trTotals);
+  createElement('td', 'Totals', trTotals);
+  // var tdTotals = document.createElement('td');
+  // tdTotals.textContent = 'Totals';
+  // trTotals.appendChild(tdTotals);
+  var grandTotal = 0;
+  for (var i = 0; i < storeHours.length; i++) {
+    var hourlyTotals = 0;
+    for (var j = 0; j < storeArray.length; j++) {
+      hourlyTotals += storeArray[j].hourlyCookieArray[i];
+      grandTotal += storeArray[j].hourlyCookieArray[i];
+    }
+    createElement('td', hourlyTotals, trTotals);
+    // var tdHourlyTotals = document.createElement('td');
+    // tdHourlyTotals.textContent = hourlyTotals;
+    // trTotals.appendChild(tdHourlyTotals);
+  }
+  createElement('td', grandTotal, trTotals);
+  // var tdGrandTotal = document.createElement('td');
+  // tdGrandTotal.textContent = grandTotal;
+  // trTotals.appendChild(tdGrandTotal);
+}
+renderFooter();
+
 // hourlyTotalsArray.push(hourlyTotals);
 // Take away the hourly totals array? Do I have to put this all inside a render function?
 
