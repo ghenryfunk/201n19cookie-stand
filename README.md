@@ -36,3 +36,4 @@ NEW Cookie-Stand
 
 // 8.15 Working on Forms and Events for lab 9
 -forms branch was actually just me refactoring code to make a createElement function for DRY principle! 
+LEFT CONSOLE LOGS IN so I can see how i got there before the createElement Function
