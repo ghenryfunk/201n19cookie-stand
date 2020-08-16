@@ -18,6 +18,11 @@ var storeHours = [
 ];
 
 var storeArray = [];
+var theadEl = document.getElementById('thead');
+var tbodyEl = document.getElementById('tbody');
+var tfootEl = document.getElementById('tfoot');
+var newStore = document.getElementById('newStore');
+
 // console.log(storeArray);
 
 // var hourlyTotalsArray = [];
@@ -50,17 +55,6 @@ Store.prototype.cookieCalc = function () {
   }
 };
 
-
-var seattle = new Store('Seattle', 23, 65, 6.3);
-var tokyo = new Store('Tokyo', 3, 24, 1.2);
-var dubai = new Store('Dubai', 11, 38, 3.7);
-var paris = new Store('Paris', 20, 38, 2.3);
-var lima = new Store('Lima', 2, 16, 4.6);
-
-var theadEl = document.getElementById('thead');
-var tbodyEl = document.getElementById('tbody');
-var tfootEl = document.getElementById('tfoot');
-
 function createElement(element, textContent, parent) {
   var newElement = document.createElement(element);
   newElement.textContent = textContent;
@@ -68,59 +62,60 @@ function createElement(element, textContent, parent) {
   return newElement;
 }
 
+new Store('Seattle', 23, 65, 6.3);
+new Store('Tokyo', 3, 24, 1.2);
+new Store('Dubai', 11, 38, 3.7);
+new Store('Paris', 20, 38, 2.3);
+new Store('Lima', 2, 16, 4.6);
+
+function handleSubmit(event) {
+  event.preventDefault();
+  // console.log(event.target);
+  var location = event.target.newlocation.value;
+  var minCust = event.target.mincust.value;
+  var maxCust = event.target.maxcust.value;
+  var avgCookies = event.target.avgcookies.value;
+
+  new Store(location, minCust, maxCust, avgCookies);
+
+  event.target.newlocation.value = null;
+  event.target.mincust.value = null;
+  event.target.maxcust.value = null;
+  event.target.avgcookies.value = null;
+
+  renderTable();
+  renderFooter();
+}
+
+newStore.addEventListener('submit', handleSubmit);
+
 function renderHeader() {
   var trHoursEl = createElement('tr', '', theadEl);
-  // var trHoursEl = document.createElement('tr');
-  // theadEl.appendChild(trHoursEl);
   createElement('th', '', trHoursEl);
-  // var thSpaceFiller = document.createElement('th');
-  // thSpaceFiller.textContent = '';
-  // trHoursEl.appendChild(thSpaceFiller);
-  
   for (var i = 0; i < storeHours.length; i++) {
     createElement('th', storeHours[i], trHoursEl);
-    // var thHoursEl = document.createElement('th');
-    // thHoursEl.textContent = storeHours[i];
-    // trHoursEl.appendChild(thHoursEl);
   }
   createElement('th', 'Daily Location Total', trHoursEl);
-  // var thDailyTotals = document.createElement('th');
-  // thDailyTotals.textContent = 'Daily Location Total';
-  // trHoursEl.appendChild(thDailyTotals);
 }
 renderHeader();
 
 function renderTable() {
+  tbodyEl.textContent = ''; // wipe the table body so we can add new stores and refresh the totals
   for (var j = 0; j < storeArray.length; j++) {
     var trStoreEl = createElement('tr', '', tbodyEl);
-    // var trStoreEl = document.createElement('tr');
-    // tbodyEl.appendChild(trStoreEl);
     createElement('td', storeArray[j].location, trStoreEl);
-    // var tdStoreEl = document.createElement('td');
-    // tdStoreEl.textContent = storeArray[j].location;
-    // trStoreEl.appendChild(tdStoreEl);
     for (var i = 0; i < storeHours.length; i++) {
       createElement('td', storeArray[j].hourlyCookieArray[i], trStoreEl);
-      // var tdCookiesEl = document.createElement('td');
-      // tdCookiesEl.textContent = storeArray[j].hourlyCookieArray[i];
-      // trStoreEl.appendChild(tdCookiesEl);
     }
     createElement('td', storeArray[j].totalCookies, trStoreEl);
-    // var tdCookieTotals = document.createElement('td');
-    // tdCookieTotals.textContent = storeArray[j].totalCookies;
-    // trStoreEl.appendChild(tdCookieTotals);
   }
 }
 renderTable();
 
 function renderFooter() {
+  tfootEl.textContent = ''; // wipe the footer so we can add new stores and refresh the total in the footer
   var trTotals = createElement('tr', '', tfootEl);
-  // var trTotals = document.createElement('tr');
-  // tfootEl.appendChild(trTotals);
   createElement('td', 'Totals', trTotals);
-  // var tdTotals = document.createElement('td');
-  // tdTotals.textContent = 'Totals';
-  // trTotals.appendChild(tdTotals);
   var grandTotal = 0;
   for (var i = 0; i < storeHours.length; i++) {
     var hourlyTotals = 0;
@@ -129,40 +124,7 @@ function renderFooter() {
       grandTotal += storeArray[j].hourlyCookieArray[i];
     }
     createElement('td', hourlyTotals, trTotals);
-    // var tdHourlyTotals = document.createElement('td');
-    // tdHourlyTotals.textContent = hourlyTotals;
-    // trTotals.appendChild(tdHourlyTotals);
   }
   createElement('td', grandTotal, trTotals);
-  // var tdGrandTotal = document.createElement('td');
-  // tdGrandTotal.textContent = grandTotal;
-  // trTotals.appendChild(tdGrandTotal);
 }
 renderFooter();
-
-// hourlyTotalsArray.push(hourlyTotals);
-// Take away the hourly totals array? Do I have to put this all inside a render function?
-
-
-
-
-
-// Store.prototype.render = function () {
-//   this.cookieCalc();
-//   var parentEl = document.getElementById(`${this.location}`); //does NOT work w/ getElementsByTagName
-//   var childEl = document.createElement('ul');
-//   childEl.textContent = `${this.location}`;
-//   parentEl.insertBefore(childEl, parentEl.firstChild);
-
-//   for (var i = 0; i < storeHours.length; i++) {
-//     var newEl = document.createElement('li');
-//     // var newText = document.createTextNode(storeHours);
-//     newEl.textContent = `${storeHours[i]}: ${this.hourlyCookieArray[i]} cookies`;
-//     // newEl.appendChild(newText);
-//     parentEl.appendChild(newEl);
-//   }
-
-//   var newEl2 = document.createElement('li');
-//   newEl2.textContent = `Total: ${this.totalCookies} cookies`;
-//   parentEl.appendChild(newEl2);
-// };
