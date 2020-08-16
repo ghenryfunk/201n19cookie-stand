@@ -22,22 +22,26 @@
         <thead id="thead"></thead>
         <tbody id="tbody"></tbody>
         <tfoot id="tfoot"></tfoot>
-      </table>
-      <ul id="Seattle">
+      </table><br>
+      <form id="newStore">
+        <fieldset>
+          <legend>Add A New Store</legend>
 
-      </ul>
-      <ul id="Tokyo">
-
-      </ul>
-      <ul id="Dubai">
-
-      </ul>
-      <ul id="Paris">
-
-      </ul>
-      <ul id="Lima">
-        
-      </ul>
+          <label>New Location:
+            <input type="text" name="newlocation" placeholder="ex. Los Angeles" required="Please enter a city">
+          </label><br>
+          <label>Minimum Expected Customers Per Hour:
+            <input type="number" name="mincust" placeholder="ex. 2" required="Please enter a number">
+          </label><br>
+          <label>Maximum Expected Customers Per Hour:
+            <input type="number" name="maxcust" placeholder="ex. 57" required="Please  enter a number">
+          </label><br>
+          <label>Average Expected Cookies Sold Per Hour:
+            <input type="number" name="avgcookies" placeholder="ex. 2.5" required="Please enter a number">
+          </label><br>
+          <button value="submit">Submit</button>
+        </fieldset>
+      </form>
   
     </main>
     <footer>
