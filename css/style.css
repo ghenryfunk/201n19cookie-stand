@@ -126,6 +126,11 @@ overflow: auto;
 margin-top: 5px;
 }
 
+/* /////////////CONTACT US TABLE/////////////// */
+
+
+
+
 /* main div{
   background-color: #111;
   color: #fff;
@@ -153,10 +158,62 @@ footer {
 
 .centered {
   position: absolute;
-  top: 44%;
+  top: 320px;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: xx-large;
   font-family: Chalkduster, fantasy;
+}
+/* 
+//////////////FORM Style//////////////////////////// */
+
+fieldset {
+  /* border: 1px solid;
+  padding: 10px; */
+  background-color: #e4f0f5;
+  border: 1px solid rgb(190, 190, 190);
+  padding: 5px 10px;
+}
+
+legend {
+  margin: auto;
+  background-color: #3f87a6;
+  color: #fff;
+  padding: 5px;
+  caption-side: bottom;
+  letter-spacing: 1px; 
+}
+
+label {
+  /* margin: auto; */
+  margin:10px;
+  margin-left: 310px;
+  background-color: #3f87a6;
+  color: #fff;
+  padding: 5px;
+  caption-side: bottom;
+  letter-spacing: 1px; 
+}
+
+input {
+  margin: 2px;
+}
+
+button {
+  margin-top: 10px;
+  margin-left: 450px;
+  background-color: salmon;
+  color: #fff;
+  padding: 5px;
+  caption-side: bottom;
+  letter-spacing: 1px; 
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: rgb(243, 111, 243);
+  color: rgb(245, 206, 245);
+  transform: scale(1.1);
+  cursor: pointer;
 }

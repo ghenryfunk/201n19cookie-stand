@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 var storeHours = [
   '6am',
   '7am',
@@ -128,3 +130,5 @@ function renderFooter() {
   createElement('td', grandTotal, trTotals);
 }
 renderFooter();
+
+
