@@ -18,6 +18,11 @@ var storeHours = [
 ];
 
 var storeArray = [];
+var theadEl = document.getElementById('thead');
+var tbodyEl = document.getElementById('tbody');
+var tfootEl = document.getElementById('tfoot');
+var newStore = document.getElementById('newStore');
+
 // console.log(storeArray);
 
 // var hourlyTotalsArray = [];
@@ -50,6 +55,12 @@ Store.prototype.cookieCalc = function () {
   }
 };
 
+function createElement(element, textContent, parent) {
+  var newElement = document.createElement(element);
+  newElement.textContent = textContent;
+  parent.appendChild(newElement);
+  return newElement;
+}
 
 new Store('Seattle', 23, 65, 6.3);
 new Store('Tokyo', 3, 24, 1.2);
@@ -57,16 +68,26 @@ new Store('Dubai', 11, 38, 3.7);
 new Store('Paris', 20, 38, 2.3);
 new Store('Lima', 2, 16, 4.6);
 
-var theadEl = document.getElementById('thead');
-var tbodyEl = document.getElementById('tbody');
-var tfootEl = document.getElementById('tfoot');
+function handleSubmit(event) {
+  event.preventDefault();
+  // console.log(event.target);
+  var location = event.target.newlocation.value;
+  var minCust = event.target.mincust.value;
+  var maxCust = event.target.maxcust.value;
+  var avgCookies = event.target.avgcookies.value;
 
-function createElement(element, textContent, parent) {
-  var newElement = document.createElement(element);
-  newElement.textContent = textContent;
-  parent.appendChild(newElement);
-  return newElement;
+  new Store(location, minCust, maxCust, avgCookies);
+
+  event.target.newlocation.value = null;
+  event.target.mincust.value = null;
+  event.target.maxcust.value = null;
+  event.target.avgcookies.value = null;
+
+  renderTable();
+  renderFooter();
 }
+
+newStore.addEventListener('submit', handleSubmit);
 
 function renderHeader() {
   var trHoursEl = createElement('tr', '', theadEl);
@@ -79,6 +100,7 @@ function renderHeader() {
 renderHeader();
 
 function renderTable() {
+  tbodyEl.textContent = ''; // wipe the table body so we can add new stores and refresh the totals
   for (var j = 0; j < storeArray.length; j++) {
     var trStoreEl = createElement('tr', '', tbodyEl);
     createElement('td', storeArray[j].location, trStoreEl);
@@ -91,6 +113,7 @@ function renderTable() {
 renderTable();
 
 function renderFooter() {
+  tfootEl.textContent = ''; // wipe the footer so we can add new stores and refresh the total in the footer
   var trTotals = createElement('tr', '', tfootEl);
   createElement('td', 'Totals', trTotals);
   var grandTotal = 0;
@@ -105,30 +128,3 @@ function renderFooter() {
   createElement('td', grandTotal, trTotals);
 }
 renderFooter();
-
-// hourlyTotalsArray.push(hourlyTotals);
-// Take away the hourly totals array? Do I have to put this all inside a render function?
-
-
-
-
-
-// Store.prototype.render = function () {
-//   this.cookieCalc();
-//   var parentEl = document.getElementById(`${this.location}`); //does NOT work w/ getElementsByTagName
-//   var childEl = document.createElement('ul');
-//   childEl.textContent = `${this.location}`;
-//   parentEl.insertBefore(childEl, parentEl.firstChild);
-
-//   for (var i = 0; i < storeHours.length; i++) {
-//     var newEl = document.createElement('li');
-//     // var newText = document.createTextNode(storeHours);
-//     newEl.textContent = `${storeHours[i]}: ${this.hourlyCookieArray[i]} cookies`;
-//     // newEl.appendChild(newText);
-//     parentEl.appendChild(newEl);
-//   }
-
-//   var newEl2 = document.createElement('li');
-//   newEl2.textContent = `Total: ${this.totalCookies} cookies`;
-//   parentEl.appendChild(newEl2);
-// };
