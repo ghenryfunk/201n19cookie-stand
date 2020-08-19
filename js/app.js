@@ -74,9 +74,9 @@ function handleSubmit(event) {
   event.preventDefault();
   // console.log(event.target);
   var location = event.target.newlocation.value;
-  var minCust = event.target.mincust.value;
-  var maxCust = event.target.maxcust.value;
-  var avgCookies = event.target.avgcookies.value;
+  var minCust = parseInt(event.target.mincust.value);
+  var maxCust = parseInt(event.target.maxcust.value);
+  var avgCookies = parseFloat(event.target.avgcookies.value);
 
   new Store(location, minCust, maxCust, avgCookies);
 
