@@ -46,7 +46,6 @@ function renderHomepageTable() {
     }
   }
   renderContact();
- 
 
   var trFoot = createElement('tr', '', tfootElHome);
   createElement('td', 'Call Us: ', trFoot);
